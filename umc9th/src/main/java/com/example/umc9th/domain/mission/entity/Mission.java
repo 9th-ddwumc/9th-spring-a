@@ -38,3 +38,6 @@ public class Mission extends BaseEntity {
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 }
+
+
+
