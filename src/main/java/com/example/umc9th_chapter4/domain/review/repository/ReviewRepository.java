@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
-public interface ReviewRepository extends JpaRepository<Review, Long> {
+public interface ReviewRepository extends JpaRepository<Review, Long>, ReviewQueryRepository {
 
     // 마이페이지: 내 리뷰(최신순, 페이징)
     Page<Review> findByUser_UserIdOrderByCreatedAtDesc(Long userId, Pageable pageable);

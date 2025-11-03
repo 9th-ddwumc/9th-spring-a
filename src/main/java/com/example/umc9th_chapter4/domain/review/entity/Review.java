@@ -38,7 +38,7 @@ public class Review extends BaseTimeEntity {
     private String content;
 
     @Column(name = "rating", nullable = false)
-    private Integer rating;
+    private Double rating;
 
     // 양방향: Review(1) : ReviewPhoto(N)
     @Builder.Default
