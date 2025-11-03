@@ -59,5 +59,4 @@ public class Member extends BaseEntity {
 
     @Column(name = "phone", length = 15, nullable = true)
     private String phone;
-
 }
