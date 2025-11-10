@@ -1,13 +1,13 @@
 package com.example.umc9th.domain.review.controller;
 
-import com.example.umc9th.domain.review.dto.MyReviewDto;
-import com.example.umc9th.domain.review.service.ReviewService;
-import lombok.AllArgsConstructor;
+import com.example.umc9th.domain.review.dto.req.ReviewReqDTO;
+import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
+import com.example.umc9th.domain.review.service.command.ReviewCommandService;
+import com.example.umc9th.domain.review.service.query.ReviewQueryService;
+import com.example.umc9th.global.apiPayload.ApiResponse;
+import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,12 +15,33 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewController {
 
-    private final ReviewService reviewService;
+    private final ReviewCommandService reviewCommandService;
+    private final ReviewQueryService reviewQueryService;
 
-    @GetMapping("/mypage/myreviews")
-    public List<MyReviewDto> getMyReviews(
+    @GetMapping("/{memberId}/mypage/myreviews")
+    public ApiResponse<List<ReviewResDTO.MyReview>> getMyReviews(
             @RequestParam(required = false) String restaurantName,
-            @RequestParam(required = false) double star) {
-        return reviewService.getMyReviews(restaurantName, star);
+            @RequestParam(required = false) double star
+    ) {
+        GeneralSuccessCode code = GeneralSuccessCode.OK;
+
+        return ApiResponse.onSuccess(
+                code,
+                reviewQueryService.getMyReviews(restaurantName, star)
+        );
     }
+
+    @PostMapping("/restaurants/{restaurantId}/reviews")
+    public ApiResponse<ReviewResDTO.newReview> addNewReview(
+            @PathVariable("restaurantId") Long restaurantId,
+            @RequestBody ReviewReqDTO.newReview request
+            ) {
+        GeneralSuccessCode code = GeneralSuccessCode.OK;
+
+        return ApiResponse.onSuccess(
+                code,
+                reviewCommandService.addNewReview(restaurantId, request)
+        );
+    }
+
 }

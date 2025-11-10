@@ -1,8 +1,7 @@
 package com.example.umc9th.domain.review.service;
 
 import com.example.umc9th.domain.restraunt.entity.QRestaurant;
-import com.example.umc9th.domain.review.dto.MyReviewCommentDto;
-import com.example.umc9th.domain.review.dto.MyReviewDto;
+import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 import com.example.umc9th.domain.review.entity.QComment;
 import com.example.umc9th.domain.review.entity.QReview;
 import com.querydsl.core.BooleanBuilder;
@@ -24,7 +23,7 @@ public class ReviewQueryDslImpl implements ReviewQueryDsl{
     private final EntityManager em;
 
     @Override
-    public List<MyReviewDto> findMyReviewsWithFilter(BooleanBuilder builder) {
+    public List<ReviewResDTO.MyReview> findMyReviewsWithFilter(BooleanBuilder builder) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 
         QReview review = QReview.review;
@@ -46,13 +45,13 @@ public class ReviewQueryDslImpl implements ReviewQueryDsl{
                 .where(builder)
                 .fetch();
 
-        Map<Long, MyReviewDto> reviewMap = new HashMap<>();
+        Map<Long, ReviewResDTO.MyReview> reviewMap = new HashMap<>();
 
         for (Tuple t : tuples) {
             Long reviewId = t.get(review.id);
-            MyReviewDto myReviewDto = reviewMap.get(reviewId);
+            ReviewResDTO.MyReview myReviewDto = reviewMap.get(reviewId);
             if (myReviewDto == null) {
-                myReviewDto =  MyReviewDto.builder()
+                myReviewDto =  ReviewResDTO.MyReview.builder()
                         .reviewId(reviewId)
                         .username(t.get(review.member.name))
                         .content(t.get(review.content))
@@ -69,11 +68,13 @@ public class ReviewQueryDslImpl implements ReviewQueryDsl{
 
             if (content != null) {
                 myReviewDto.getComments().add(
-                        new MyReviewCommentDto(content, createdAt)
+                        ReviewResDTO.MyReviewResCommentDto.builder()
+                                .content(content)
+                                .createdAt(createdAt)
+                                .build()
                 );
             }
         }
-
         return new ArrayList<>(reviewMap.values());
     }
 }

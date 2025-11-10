@@ -60,7 +60,7 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
                     ")"+
                     "order by m.endDate desc, m.id desc"
     )
-    List<MissionDto> findByLocationWithCursor(@Param("memberId") Long memberId,
+    List<Mission> findByLocationWithCursor(@Param("memberId") Long memberId,
                                                @Param("location") String location,
                                                @Param("endDate") LocalDate endDate,
                                                @Param("lastId") Long lastId,
@@ -78,7 +78,7 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
                     "and m.success = false " +
                     "order by m.endDate desc, m.id desc"
     )
-    List<MissionDto> findByLocationFirst(@Param("memberId") Long memberId,
+    List<Mission> findByLocationFirst(@Param("memberId") Long memberId,
                                          @Param("location") String location,
                                          Pageable pageable);
 }

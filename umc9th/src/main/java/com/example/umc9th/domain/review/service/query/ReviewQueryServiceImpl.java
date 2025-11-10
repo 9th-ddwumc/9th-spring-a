@@ -1,7 +1,7 @@
-package com.example.umc9th.domain.review.service;
+package com.example.umc9th.domain.review.service.query;
 
 import com.example.umc9th.domain.restraunt.entity.QRestaurant;
-import com.example.umc9th.domain.review.dto.MyReviewDto;
+import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 import com.example.umc9th.domain.review.entity.QReview;
 import com.example.umc9th.domain.review.repository.ReviewRepository;
 import com.querydsl.core.BooleanBuilder;
@@ -12,11 +12,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ReviewService {
+public class ReviewQueryServiceImpl implements ReviewQueryService{
 
     private final ReviewRepository reviewRepository;
 
-    public List<MyReviewDto> getMyReviews(String restaurantName, Double star) {
+    @Override
+    public List<ReviewResDTO.MyReview> getMyReviews(String restaurantName, Double star) {
         QReview review = QReview.review;
         QRestaurant restaurant = QRestaurant.restaurant;
 
