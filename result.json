@@ -1,0 +1,47 @@
+﻿{
+    "content":  [
+                    {
+                        "id":  1,
+                        "content":  "ë§ë¼íì´ ì¼ì¼íë ì¥ì´ë¤!",
+                        "star":  4.7,
+                        "reply":  null
+                    },
+                    {
+                        "id":  2,
+                        "content":  "ì¬ì¥ëì´ ì¹ì í´ì.",
+                        "star":  3.9,
+                        "reply":  null
+                    },
+                    {
+                        "id":  3,
+                        "content":  "ë§ë¼í ë¨¹ì§ ë§ë¼. ëë§ ë¨¹ì ê±°ë¤.",
+                        "star":  3.5,
+                        "reply":  null
+                    }
+                ],
+    "pageable":  {
+                     "pageNumber":  0,
+                     "pageSize":  10,
+                     "sort":  {
+                                  "empty":  false,
+                                  "sorted":  true,
+                                  "unsorted":  false
+                              },
+                     "offset":  0,
+                     "paged":  true,
+                     "unpaged":  false
+                 },
+    "last":  true,
+    "totalPages":  1,
+    "totalElements":  3,
+    "size":  10,
+    "number":  0,
+    "sort":  {
+                 "empty":  false,
+                 "sorted":  true,
+                 "unsorted":  false
+             },
+    "first":  true,
+    "numberOfElements":  3,
+    "empty":  false
+}
