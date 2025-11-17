@@ -4,7 +4,7 @@ import com.example.umc9th_chapter4.domain.mission.entity.UserMission;
 import com.example.umc9th_chapter4.domain.review.entity.Review;
 import com.example.umc9th_chapter4.domain.user.enums.Gender;
 import com.example.umc9th_chapter4.domain.user.enums.SocialType;
-import com.example.umc9th_chapter4.global.jpa.BaseTimeEntity;
+import com.example.umc9th_chapter4.global.jpa.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "users")
-public class Users extends BaseTimeEntity {
+public class Users extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

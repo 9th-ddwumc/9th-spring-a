@@ -2,7 +2,7 @@ package com.example.umc9th_chapter4.domain.review.entity;
 
 import com.example.umc9th_chapter4.domain.store.entity.Store;
 import com.example.umc9th_chapter4.domain.user.entity.Users;
-import com.example.umc9th_chapter4.global.jpa.BaseTimeEntity;
+import com.example.umc9th_chapter4.global.jpa.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "review")
-public class Review extends BaseTimeEntity {
+public class Review extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

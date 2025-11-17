@@ -1,7 +1,7 @@
 package com.example.umc9th_chapter4.domain.mission.entity;
 
 import com.example.umc9th_chapter4.domain.store.entity.Store;
-import com.example.umc9th_chapter4.global.jpa.BaseTimeEntity;
+import com.example.umc9th_chapter4.global.jpa.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "mission")
-public class Mission extends BaseTimeEntity {
+public class Mission extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
