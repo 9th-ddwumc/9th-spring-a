@@ -13,6 +13,8 @@ import java.util.List;
 
 public interface UserMissionRepository extends JpaRepository<UserMission, Long> {
 
+    // 중복 도전 방지
+    boolean existsByMission_IdAndUsers_UserId(Long missionId, Long userId);
     // 진행 중/완료 별 페이징
     Page<UserMission> findByUsers_UserIdAndStatusOrderByUpdatedAtDesc(
             Long userId, MissionStatus status, Pageable pageable);
