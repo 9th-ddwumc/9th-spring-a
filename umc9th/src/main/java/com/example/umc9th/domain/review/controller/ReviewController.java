@@ -2,10 +2,12 @@ package com.example.umc9th.domain.review.controller;
 
 import com.example.umc9th.domain.review.dto.req.ReviewReqDTO;
 import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
+import com.example.umc9th.domain.review.exception.code.ReviewSuccessCode;
 import com.example.umc9th.domain.review.service.command.ReviewCommandService;
 import com.example.umc9th.domain.review.service.query.ReviewQueryService;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,16 +33,14 @@ public class ReviewController {
         );
     }
 
-    @PostMapping("/restaurants/{restaurantId}/reviews")
+    @PostMapping("/missions/{missionId}/reviews")
     public ApiResponse<ReviewResDTO.newReview> addNewReview(
-            @PathVariable("restaurantId") Long restaurantId,
-            @RequestBody ReviewReqDTO.newReview request
+            @PathVariable("missionId") Long missionId,
+            @RequestBody @Valid ReviewReqDTO.newReview request
             ) {
-        GeneralSuccessCode code = GeneralSuccessCode.OK;
-
         return ApiResponse.onSuccess(
-                code,
-                reviewCommandService.addNewReview(restaurantId, request)
+                ReviewSuccessCode.FOUND,
+                reviewCommandService.addNewReview(request)
         );
     }
 

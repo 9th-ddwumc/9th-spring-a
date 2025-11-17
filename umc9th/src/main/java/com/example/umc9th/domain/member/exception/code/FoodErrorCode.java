@@ -1,4 +1,4 @@
-package com.example.umc9th.domain.restraunt.exception.code;
+package com.example.umc9th.domain.member.exception.code;
 
 import com.example.umc9th.global.apiPayload.code.BaseErrorCode;
 import lombok.AllArgsConstructor;
@@ -7,9 +7,11 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
-public enum RestaurantErrorCode implements BaseErrorCode {
+public enum FoodErrorCode implements BaseErrorCode {
 
-    NOT_FOUND(HttpStatus.NOT_FOUND, "RESTAURANT404_1", "존재하지 않는 가게입니다."),
+    NOT_FOUND(HttpStatus.NOT_FOUND,
+            "FOOD404_1",
+            "해당 사용자를 찾지 못했습니다."),
     ;
 
     private final HttpStatus status;

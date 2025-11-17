@@ -19,7 +19,7 @@ public class MemberQueryServiceImpl implements MemberQueryService {
     @Override
     public MemberResDTO.MyPage getMypage(Long memberId) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
+                .orElseThrow(() -> new MemberException(MemberErrorCode.NOT_FOUND));
 
         return memberConverter.toMyPage(member);
     }

@@ -4,5 +4,5 @@ import com.example.umc9th.domain.review.dto.req.ReviewReqDTO;
 import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 
 public interface ReviewCommandService {
-    ReviewResDTO.newReview addNewReview(Long restaurantId, ReviewReqDTO.newReview request);
+    ReviewResDTO.newReview addNewReview(ReviewReqDTO.newReview request);
 }

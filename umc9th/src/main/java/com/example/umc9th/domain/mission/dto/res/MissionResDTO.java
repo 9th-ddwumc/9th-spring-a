@@ -28,4 +28,11 @@ public class MissionResDTO {
         private final Integer point;
         private final LocalDate endDate;
     }
+
+    @Getter
+    @Builder
+    public static class newMyMission {
+        private final Long missionId;
+        private final Boolean challenge;
+    }
 }

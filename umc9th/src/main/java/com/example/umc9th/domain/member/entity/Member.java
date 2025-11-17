@@ -29,6 +29,7 @@ public class Member extends BaseEntity {
     private List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
+    @Builder.Default
     private List<MemberFood> memberFoods = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
@@ -55,7 +56,8 @@ public class Member extends BaseEntity {
     private String email;
 
     @Column(name = "point", nullable = false)
-    private Integer point;
+    @Builder.Default
+    private Integer point = 0;
 
     @Column(name = "phone", length = 15, nullable = true)
     private String phone;

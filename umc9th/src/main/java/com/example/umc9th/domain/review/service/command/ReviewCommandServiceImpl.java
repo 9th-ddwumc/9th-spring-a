@@ -13,6 +13,7 @@ import com.example.umc9th.domain.review.dto.req.ReviewReqDTO;
 import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.review.repository.ReviewRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,18 +27,12 @@ public class ReviewCommandServiceImpl implements ReviewCommandService{
     private final ReviewConverter reviewConverter;
 
     @Override
-    public ReviewResDTO.newReview addNewReview(Long restaurantId, ReviewReqDTO.newReview request) {
-        Member member = memberRepository.findById(request.getMemberId())
-                .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
-        Restaurant restaurant = restaurantRepository.findById(restaurantId)
-                .orElseThrow(() -> new RestaurantException(RestaurantErrorCode.RESTAURANT_NOT_FOUND));
+    @Transactional
+    public ReviewResDTO.newReview addNewReview(ReviewReqDTO.newReview request) {
+        Member member = memberRepository.getReferenceById(request.getMemberId());
+        Restaurant restaurant = restaurantRepository.getReferenceById(request.getRestaurantId());
 
-        Review review = Review.builder()
-                .member(member)
-                .restaurant(restaurant)
-                .star(request.getStar())
-                .content(request.getContent())
-                .build();
+        Review review = reviewConverter.toReview(member, restaurant, request);
 
         Review savedReview = reviewRepository.save(review);
         return reviewConverter.toNewReview(savedReview);

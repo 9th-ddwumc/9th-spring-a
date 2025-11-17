@@ -29,6 +29,9 @@ public class Mission extends BaseEntity {
     @OneToMany(mappedBy = "mission")
     private List<MemberMission> memberMissions = new ArrayList<>();
 
+    @Column(name = "content", nullable = false)
+    private String content;
+
     @Column(name = "point", nullable = false)
     private Integer point;
 
@@ -37,6 +40,7 @@ public class Mission extends BaseEntity {
 
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
+
 }
 
 
