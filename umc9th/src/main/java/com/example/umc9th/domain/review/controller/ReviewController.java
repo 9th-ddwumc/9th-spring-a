@@ -9,13 +9,14 @@ import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class ReviewController {
+public class ReviewController implements ReviewControllerDocs{
 
     private final ReviewCommandService reviewCommandService;
     private final ReviewQueryService reviewQueryService;
@@ -43,5 +44,23 @@ public class ReviewController {
                 reviewCommandService.addNewReview(request)
         );
     }
+
+    // 가게의 리뷰 목록 조회
+    @Override
+    public ApiResponse<ReviewResDTO.ReviewPreViewListDTO> getReviews(
+            @RequestParam("storeName") String storeName,
+            @RequestParam(value = "page", defaultValue = "1") Integer page
+    ) {
+        ReviewSuccessCode code = ReviewSuccessCode.FOUND;
+        return ApiResponse.onSuccess(code, reviewQueryService.findReview(storeName, page));
+    }
+
+    @Override
+    public ApiResponse<ReviewResDTO.MyReviewPreViewListDTO> getMyReviews(Long memberId, Integer page) {
+        ReviewSuccessCode code = ReviewSuccessCode.FOUND;
+        page--;
+        return ApiResponse.onSuccess(code, reviewQueryService.findMyReview(memberId, page));
+    }
+
 
 }

@@ -1,10 +1,13 @@
 package com.example.umc9th.domain.mission.dto.res;
 
+import com.example.umc9th.domain.member.enums.MemberMissionStatus;
 import com.example.umc9th.domain.mission.entity.Mission;
+import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class MissionResDTO {
 
@@ -29,10 +32,39 @@ public class MissionResDTO {
         private final LocalDate endDate;
     }
 
-    @Getter
     @Builder
-    public static class newMyMission {
-        private final Long missionId;
-        private final Boolean challenge;
-    }
+    public record MissionPreViewListDTO(
+            List<MissionPreViewDTO> missionList,
+            Integer listSize,
+            Integer totalPage,
+            Long totalElements,
+            Boolean isFirst,
+            Boolean isLast
+    ){}
+
+    @Builder
+    public record MissionPreViewDTO(
+            String restaurantName,
+            Integer point,
+            String content,
+            LocalDate endDate
+    ){}
+
+    @Builder
+    public record MyMissionPreViewListDTO(
+            List<MyMissionPreViewDTO> myMissionList,
+            Integer listSize,
+            Integer totalPage,
+            Long totalElements,
+            Boolean isFirst,
+            Boolean isLast
+    ){}
+
+    @Builder
+    public record MyMissionPreViewDTO(
+            String restaurantName,
+            String content,
+            Integer point,
+            MemberMissionStatus status
+    ){}
 }

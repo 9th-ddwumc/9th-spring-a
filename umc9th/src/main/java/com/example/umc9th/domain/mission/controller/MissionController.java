@@ -1,11 +1,13 @@
 package com.example.umc9th.domain.mission.controller;
 
 import com.example.umc9th.domain.member.dto.res.MemberMissionResDTO;
+import com.example.umc9th.domain.member.enums.MemberMissionStatus;
 import com.example.umc9th.domain.mission.dto.req.MissionReqDTO;
 import com.example.umc9th.domain.mission.dto.res.MissionResDTO;
 import com.example.umc9th.domain.mission.exception.code.MissionSuccessCode;
 import com.example.umc9th.domain.mission.service.command.MissionCommandService;
 import com.example.umc9th.domain.mission.service.query.MissionQueryService;
+import com.example.umc9th.domain.review.exception.code.ReviewSuccessCode;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
 import jakarta.validation.Valid;
@@ -18,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class MissionController {
+public class MissionController implements MissionControllerDocs{
 
     private final MissionQueryService missionQueryService;
     private final MissionCommandService missionCommandService;
@@ -64,4 +66,27 @@ public class MissionController {
                 missionCommandService.challengeMission(request)
         );
     }
+
+
+    @Override
+    public ApiResponse<MissionResDTO.MissionPreViewListDTO> getMissions(String restaurantName, Integer page) {
+        MissionSuccessCode code = MissionSuccessCode.FOUND;
+        page--;
+        return ApiResponse.onSuccess(code, missionQueryService.findRestaurantMission(restaurantName, page));
+    }
+
+    @Override
+    public ApiResponse<MissionResDTO.MyMissionPreViewListDTO> getMyMissions(Long memberId, MemberMissionStatus status, Integer page) {
+        MissionSuccessCode code = MissionSuccessCode.FOUND;
+        page--;
+        return ApiResponse.onSuccess(code, missionQueryService.findMyMission(memberId, status, page));
+    }
+
+    @Override
+    public ApiResponse<MissionResDTO.MyMissionPreViewListDTO> completeMyMissions(MissionReqDTO.completeMyMissionDTO request, Integer page) {
+        MissionSuccessCode code = MissionSuccessCode.FOUND;
+        page--;
+        return ApiResponse.onSuccess(code, missionCommandService.completeMission(request, page));
+    }
+
 }

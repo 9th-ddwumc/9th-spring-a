@@ -3,10 +3,11 @@ package com.example.umc9th.domain.review.exception.code;
 import com.example.umc9th.global.apiPayload.code.BaseSuccessCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum ReviewSuccessCode implements BaseSuccessCode {
 
     FOUND(HttpStatus.OK,

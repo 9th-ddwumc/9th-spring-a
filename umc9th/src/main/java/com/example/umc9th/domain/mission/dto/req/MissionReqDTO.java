@@ -1,5 +1,6 @@
 package com.example.umc9th.domain.mission.dto.req;
 
+import com.example.umc9th.domain.member.enums.MemberMissionStatus;
 import com.example.umc9th.global.annotation.ExistMembers;
 import com.example.umc9th.global.annotation.ExistMissions;
 import lombok.Builder;
@@ -10,6 +11,15 @@ public class MissionReqDTO {
     @Getter
     @Builder
     public static class challengeMissionDTO {
+        @ExistMissions
+        private final Long missionId;
+        @ExistMembers
+        private final Long memberId;
+    }
+
+    @Getter
+    @Builder
+    public static class completeMyMissionDTO {
         @ExistMissions
         private final Long missionId;
         @ExistMembers

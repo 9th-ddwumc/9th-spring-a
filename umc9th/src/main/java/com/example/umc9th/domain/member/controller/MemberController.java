@@ -35,4 +35,5 @@ public class MemberController {
             ) {
         return ApiResponse.onSuccess(MemberSuccessCode.FOUND, memberCommandService.signUp(dto));
     }
+
 }

@@ -1,8 +1,10 @@
 package com.example.umc9th.domain.review.dto.res;
 
+import com.example.umc9th.domain.review.entity.Comment;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,4 +41,41 @@ public class ReviewResDTO {
         private String content;
         private LocalDateTime createdAt;
     }
+
+    @Builder
+    public record ReviewPreViewListDTO(
+            List<ReviewPreViewDTO> reviewList,
+            Integer listSize,
+            Integer totalPage,
+            Long totalElements,
+            Boolean isFirst,
+            Boolean isLast
+    ){}
+
+    @Builder
+    public record ReviewPreViewDTO(
+            String ownerNickname,
+            Double score,
+            String body,
+            LocalDate createdAt
+    ){}
+
+    @Builder
+    public record MyReviewPreViewListDTO(
+            List<MyReviewPreViewDTO> reviewList,
+            Integer listSize,
+            Integer totalPage,
+            Long totalElements,
+            Boolean isFirst,
+            Boolean isLast
+    ){}
+
+    @Builder
+    public record MyReviewPreViewDTO(
+            String ownerNickname,
+            Double score,
+            String body,
+            LocalDate createdAt,
+            List<CommentResDTO.CommentDTO> comments
+    ){}
 }

@@ -1,6 +1,5 @@
 package com.example.umc9th.domain.review.service;
 
-import com.example.umc9th.domain.review.dto.res.MyReviewResDto;
 import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 import com.querydsl.core.BooleanBuilder;
 
