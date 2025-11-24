@@ -9,6 +9,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+import static java.time.LocalDateTime.now;
+
 @Entity
 @Getter
 @Builder
@@ -47,4 +49,9 @@ public class UserMission {
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    public void complete() {
+        this.status = MissionStatus.CLEARED;
+        this.clearedAt = LocalDateTime.now();
+    }
 }

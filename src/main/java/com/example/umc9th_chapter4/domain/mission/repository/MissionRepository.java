@@ -25,4 +25,7 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
     @EntityGraph(attributePaths = {"userMissions"})
     @Query("select m from Mission m where m.store.id = :storeId")
     List<Mission> findWithUserMissionsByStoreId(Long storeId);
+
+    // 특정 가게의 미션 목록 조회 (페이징)
+    Page<Mission> findByStore_IdOrderByCreatedAtDesc(Long storeId, Pageable pageable);
 }

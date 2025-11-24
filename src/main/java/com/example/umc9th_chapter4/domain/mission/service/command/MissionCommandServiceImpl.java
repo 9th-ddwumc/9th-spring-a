@@ -71,4 +71,24 @@ public class MissionCommandServiceImpl implements MissionCommandService {
         // 4. 응답 DTO 변환
         return MissionConverter.toMissionCreateDTO(mission);
     }
+
+    @Override
+    @Transactional
+    public MissionResDTO.CompletedMissionDTO completeMission(Long userId, Long userMissionId) {
+
+        // 1. UserMission 조회
+        UserMission userMission = userMissionRepository.findById(userMissionId)
+                .orElseThrow(() -> new MissionException(MissionErrorCode.USER_MISSION_NOT_FOUND));
+
+        // 2. 요청한 사용자가 맞는지 확인
+        if (!userMission.getUsers().getUserId().equals(userId)) {
+            throw new MissionException(MissionErrorCode.USER_MISSION_NOT_FOUND);
+        }
+
+        // 3. 엔티티 자체에서 상태 변경
+        userMission.complete();
+
+        // 4. 응답 DTO 변환 (save() 불필요 - JPA Dirty Checking으로 자동 UPDATE)
+        return MissionConverter.toCompletedMissionDTO(userMission);
+    }
 }

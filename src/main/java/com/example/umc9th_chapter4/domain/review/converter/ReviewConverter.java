@@ -1,11 +1,13 @@
 package com.example.umc9th_chapter4.domain.review.converter;
 
+import com.example.umc9th_chapter4.domain.review.dto.MyReviewRowDto;
 import com.example.umc9th_chapter4.domain.review.dto.req.ReviewReqDTO;
 import com.example.umc9th_chapter4.domain.review.dto.res.ReviewResDTO;
 import com.example.umc9th_chapter4.domain.review.entity.Review;
 import com.example.umc9th_chapter4.domain.review.entity.ReviewPhoto;
 import com.example.umc9th_chapter4.domain.store.entity.Store;
 import com.example.umc9th_chapter4.domain.user.entity.Users;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -46,5 +48,30 @@ public class ReviewConverter {
                 review.getContent(),
                 photoUrls
         );
+    }
+
+    // 내 리뷰 개별 변환 - MyReviewRowDto -> MyReviewDTO
+    public static ReviewResDTO.MyReviewDTO toMyReviewDTO(MyReviewRowDto row) {
+        return ReviewResDTO.MyReviewDTO.builder()
+                .content(row.content())
+                .star(row.star())
+                .reply(row.reply())
+                .build();
+    }
+
+    // 내 리뷰 목록 조회 - Page<MyReviewRowDto> -> MyReviewListDTO
+    public static ReviewResDTO.MyReviewListDTO toMyReviewListDTO(Page<MyReviewRowDto> page) {
+        return ReviewResDTO.MyReviewListDTO.builder()
+                .reviewList(
+                        page.getContent().stream()
+                                .map(ReviewConverter::toMyReviewDTO)
+                                .toList()
+                )
+                .listSize(page.getSize())
+                .totalPage(page.getTotalPages())
+                .totalElements(page.getTotalElements())
+                .isFirst(page.isFirst())
+                .isLast(page.isLast())
+                .build();
     }
 }

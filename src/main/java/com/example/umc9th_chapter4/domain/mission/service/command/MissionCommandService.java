@@ -10,4 +10,7 @@ public interface MissionCommandService {
 
     // 미션 추가하기
     MissionResDTO.MissionCreateDTO createMission(Long storeId, MissionReqDTO.MissionCreateDTO dto);
+
+    // 미션 완료하기
+    MissionResDTO.CompletedMissionDTO completeMission(Long userId, Long userMissionId);
 }

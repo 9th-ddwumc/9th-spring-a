@@ -4,6 +4,7 @@ import com.example.umc9th_chapter4.global.apiPayload.ApiResponse;
 import com.example.umc9th_chapter4.global.apiPayload.code.BaseErrorCode;
 import com.example.umc9th_chapter4.global.apiPayload.code.GeneralErrorCode;
 import com.example.umc9th_chapter4.global.apiPayload.exception.GeneralException;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,6 +31,25 @@ public class GeneralExceptionAdvice {
         ApiResponse<Map<String, String>> errorResponse = ApiResponse.onFailure(code, errors);
 
         // 에러 코드, 메시지와 함께 errors를 반환
+        return ResponseEntity.status(code.getStatus()).body(errorResponse);
+    }
+
+    // 파라미터 검증 실패 처리 (@PageValid 등의 파라미터 어노테이션 검증)
+    @ExceptionHandler(ConstraintViolationException.class)
+    protected ResponseEntity<ApiResponse<Map<String, String>>> handleConstraintViolationException(
+            ConstraintViolationException ex
+    ) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getConstraintViolations().forEach(violation ->
+                errors.put(
+                        violation.getPropertyPath().toString(),
+                        violation.getMessage()
+                )
+        );
+
+        GeneralErrorCode code = GeneralErrorCode.INVALID_PARAMETER;
+        ApiResponse<Map<String, String>> errorResponse = ApiResponse.onFailure(code, errors);
+
         return ResponseEntity.status(code.getStatus()).body(errorResponse);
     }
 

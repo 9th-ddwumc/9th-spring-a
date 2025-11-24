@@ -5,6 +5,8 @@ import com.example.umc9th_chapter4.domain.user.dto.res.UserResDTO;
 import com.example.umc9th_chapter4.domain.user.exception.code.UserSuccessCode;
 import com.example.umc9th_chapter4.domain.user.service.command.UserCommandService;
 import com.example.umc9th_chapter4.global.apiPayload.ApiResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +19,14 @@ public class UserController {
 
     private final UserCommandService userCommandService;
 
-    // 회원가입
+    @Operation(
+            summary = "회원가입 API By 포롱 (개발중)",
+            description = "새로운 사용자를 등록합니다."
+    )
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "입력 값 오류")
+    })
     @PostMapping("/sign-up")
     public ApiResponse<UserResDTO.JoinDTO> signUp(
             @RequestBody @Valid UserReqDTO.JoinDTO dto
