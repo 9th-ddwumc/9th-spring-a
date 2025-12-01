@@ -3,7 +3,6 @@ package com.example.umc9th.domain.mission.controller;
 import com.example.umc9th.domain.member.enums.MemberMissionStatus;
 import com.example.umc9th.domain.mission.dto.req.MissionReqDTO;
 import com.example.umc9th.domain.mission.dto.res.MissionResDTO;
-import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 import com.example.umc9th.global.annotation.ValidPage;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,7 +53,7 @@ public interface MissionControllerDocs {
     })
     @PostMapping("/mymissions/complete")
     ApiResponse<MissionResDTO.MyMissionPreViewListDTO> completeMyMissions(
-            @RequestBody @Valid MissionReqDTO.completeMyMissionDTO request,
+            @RequestBody @Valid MissionReqDTO.CompleteMyMissionDTO request,
             @RequestParam("page") @ValidPage Integer page
     );
 }

@@ -7,5 +7,5 @@ import com.example.umc9th.domain.mission.dto.res.MissionResDTO;
 public interface MissionCommandService {
     MemberMissionResDTO.ChallengeMemberMission challengeMission(MissionReqDTO.challengeMissionDTO request);
 
-    MissionResDTO.MyMissionPreViewListDTO completeMission(MissionReqDTO.completeMyMissionDTO request, Integer page);
+    MissionResDTO.MyMissionPreViewListDTO completeMission(MissionReqDTO.CompleteMyMissionDTO request, Integer page);
 }

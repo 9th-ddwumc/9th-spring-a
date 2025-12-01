@@ -49,7 +49,7 @@ public class MissionCommandServiceImpl implements MissionCommandService {
 
     @Override
     @Transactional
-    public MissionResDTO.MyMissionPreViewListDTO completeMission(MissionReqDTO.completeMyMissionDTO request, Integer page) {
+    public MissionResDTO.MyMissionPreViewListDTO completeMission(MissionReqDTO.CompleteMyMissionDTO request, Integer page) {
 
         Member member = memberRepository.findById(request.getMemberId())
                 .orElseThrow(() -> new MemberException(MemberErrorCode.NOT_FOUND));

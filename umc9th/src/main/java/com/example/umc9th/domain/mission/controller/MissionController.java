@@ -7,7 +7,6 @@ import com.example.umc9th.domain.mission.dto.res.MissionResDTO;
 import com.example.umc9th.domain.mission.exception.code.MissionSuccessCode;
 import com.example.umc9th.domain.mission.service.command.MissionCommandService;
 import com.example.umc9th.domain.mission.service.query.MissionQueryService;
-import com.example.umc9th.domain.review.exception.code.ReviewSuccessCode;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
 import jakarta.validation.Valid;
@@ -83,7 +82,7 @@ public class MissionController implements MissionControllerDocs{
     }
 
     @Override
-    public ApiResponse<MissionResDTO.MyMissionPreViewListDTO> completeMyMissions(MissionReqDTO.completeMyMissionDTO request, Integer page) {
+    public ApiResponse<MissionResDTO.MyMissionPreViewListDTO> completeMyMissions(MissionReqDTO.CompleteMyMissionDTO request, Integer page) {
         MissionSuccessCode code = MissionSuccessCode.FOUND;
         page--;
         return ApiResponse.onSuccess(code, missionCommandService.completeMission(request, page));

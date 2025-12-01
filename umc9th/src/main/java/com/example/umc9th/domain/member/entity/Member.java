@@ -4,6 +4,7 @@ import com.example.umc9th.domain.member.entity.mapping.MemberFood;
 import com.example.umc9th.domain.member.entity.mapping.MemberMission;
 import com.example.umc9th.domain.member.entity.mapping.MemberTerm;
 import com.example.umc9th.domain.member.enums.Gender;
+import com.example.umc9th.domain.member.enums.Role;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.global.entity.BaseEntity;
 import jakarta.persistence.*;
@@ -52,8 +53,6 @@ public class Member extends BaseEntity {
     @Column(name = "birth", nullable = false)
     private LocalDate birth;
 
-    @Column(name = "email", length = 30, nullable = false)
-    private String email;
 
     @Column(name = "point", nullable = false)
     @Builder.Default
@@ -61,4 +60,13 @@ public class Member extends BaseEntity {
 
     @Column(name = "phone", length = 15, nullable = true)
     private String phone;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
