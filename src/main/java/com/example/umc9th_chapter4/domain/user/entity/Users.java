@@ -3,6 +3,7 @@ package com.example.umc9th_chapter4.domain.user.entity;
 import com.example.umc9th_chapter4.domain.mission.entity.UserMission;
 import com.example.umc9th_chapter4.domain.review.entity.Review;
 import com.example.umc9th_chapter4.domain.user.enums.Gender;
+import com.example.umc9th_chapter4.domain.user.enums.Role;
 import com.example.umc9th_chapter4.domain.user.enums.SocialType;
 import com.example.umc9th_chapter4.global.jpa.BaseEntity;
 import jakarta.persistence.*;
@@ -27,10 +28,12 @@ public class Users extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "social_type", nullable = false, length = 20)
-    private SocialType socialType;
+    @Builder.Default
+    private SocialType socialType = SocialType.LOCAL;
 
     @Column(name = "social_id", nullable = false, length = 50)
-    private String socialId;
+    @Builder.Default
+    private String socialId = "LOCAL";
 
     @Column(name = "name", nullable = false, length = 10)
     private String name;
@@ -56,6 +59,12 @@ public class Users extends BaseEntity {
     @Builder.Default
     private Integer point = 0;
 
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     // 양방향: Users(1) : UserMission(N)
     @Builder.Default
     @OneToMany(mappedBy = "users")
@@ -70,5 +79,8 @@ public class Users extends BaseEntity {
     void prePersist() {
         if (gender == null) gender = Gender.OTHER;
         if (point == null) point = 0;
+
+        if (socialType == null) socialType = SocialType.LOCAL;
+        if (socialId == null) socialId = "LOCAL";
     }
 }

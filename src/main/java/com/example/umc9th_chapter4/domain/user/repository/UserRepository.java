@@ -21,4 +21,6 @@ public interface UserRepository extends JpaRepository<Users, Long> {
     @EntityGraph(attributePaths = {"reviews"})
     @Query("select u from Users u where u.userId = :userId")
     Users findWithReviews(Long userId);
+
+    Optional<Users> findByEmail(String email);
 }

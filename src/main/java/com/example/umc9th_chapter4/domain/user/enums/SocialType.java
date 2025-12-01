@@ -4,5 +4,6 @@ public enum SocialType {
     KAKAO,
     NAVER,
     APPLE,
-    GOOGLE
+    GOOGLE,
+    LOCAL
 }

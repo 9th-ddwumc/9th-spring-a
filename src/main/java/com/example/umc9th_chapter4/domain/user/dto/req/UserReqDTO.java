@@ -2,6 +2,7 @@ package com.example.umc9th_chapter4.domain.user.dto.req;
 
 import com.example.umc9th_chapter4.domain.user.enums.Gender;
 import com.example.umc9th_chapter4.global.annotation.ExistFoods;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -12,6 +13,10 @@ public class UserReqDTO {
     public record JoinDTO(
             @NotBlank
             String name,
+            @Email
+            String email,
+            @NotBlank
+            String password,
             @NotNull
             Gender gender,
             @NotNull
@@ -23,5 +28,12 @@ public class UserReqDTO {
 
             @ExistFoods
             List<Long> preferCategory
+    ) {}
+
+    public record LoginDTO(
+            @NotBlank
+            String email,
+            @NotBlank
+            String password
     ) {}
 }

@@ -9,4 +9,10 @@ public class UserResDTO {
             Long userId,
             LocalDateTime createAt
     ){}
+
+    @Builder
+    public record LoginDTO(
+            Long userId,
+            String accessToken
+    ){}
 }
