@@ -1,4 +1,4 @@
-# 9th-spring-a
+# 9th-spring-b
 [UMC DDWU 9th를 위한 깃허브 사용법 및 규칙](https://makeus-challenge.notion.site/26fb57f4596b80e78684e241677067b5)
 
 <br>
