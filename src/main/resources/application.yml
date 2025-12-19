@@ -2,6 +2,10 @@ spring:
   application:
     name: "umc9th" # "umc9th"
 
+  servlet:
+    multipart:
+      enabled: true
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver # MySQL JDBC 드라이버 클래스 이름
     url: ${DB_URL} # jdbc:mysql://localhost:3306/{데이터베이스명}
@@ -23,3 +27,17 @@ jwt:
     secretKey: ZGh3YWlkc2F2ZXdhZXZ3b2EgMTM5ZXUgMDMxdWMyIHEyMiBAIDAgKTJFVio=
     expiration:
       access: 14400000
+
+cloud:
+  aws:
+    s3:
+      bucket: umc-5th
+      path:
+        review: review
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      accessKey: ${AWS_ACCESS_KEY_ID}
+      secretKey: ${AWS_SECRET_ACCESS_KEY}

@@ -7,16 +7,21 @@ import com.example.umc9th.domain.review.service.command.ReviewCommandService;
 import com.example.umc9th.domain.review.service.query.ReviewQueryService;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class ReviewController implements ReviewControllerDocs{
+public class ReviewController implements ReviewControllerDocs {
 
     private final ReviewCommandService reviewCommandService;
     private final ReviewQueryService reviewQueryService;
@@ -34,14 +39,18 @@ public class ReviewController implements ReviewControllerDocs{
         );
     }
 
-    @PostMapping("/missions/{missionId}/reviews")
+    @PostMapping(
+            value = "/missions/{missionId}/reviews", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}
+    )
     public ApiResponse<ReviewResDTO.newReview> addNewReview(
+            @Parameter(content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE))
+            @RequestPart("request") @Valid ReviewReqDTO.newReview request,
             @PathVariable("missionId") Long missionId,
-            @RequestBody @Valid ReviewReqDTO.newReview request
-            ) {
+            @RequestPart("reviewImage") MultipartFile reviewImage
+    ) {
         return ApiResponse.onSuccess(
                 ReviewSuccessCode.FOUND,
-                reviewCommandService.addNewReview(request)
+                reviewCommandService.addNewReview(request, reviewImage)
         );
     }
 
@@ -62,5 +71,11 @@ public class ReviewController implements ReviewControllerDocs{
         return ApiResponse.onSuccess(code, reviewQueryService.findMyReview(memberId, page));
     }
 
+    @Override
+    public ApiResponse<Void> deleteReviewImage(Long reviewId) {
+        reviewCommandService.deleteReviewImage(reviewId);
+        ReviewSuccessCode code = ReviewSuccessCode.REVIEW_IMAGE_DELETED;
+        return ApiResponse.onSuccess(code, null);
+    }
 
 }

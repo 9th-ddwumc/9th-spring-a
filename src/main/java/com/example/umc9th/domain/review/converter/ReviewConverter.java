@@ -6,6 +6,7 @@ import com.example.umc9th.domain.review.dto.req.ReviewReqDTO;
 import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 import com.example.umc9th.domain.review.entity.Comment;
 import com.example.umc9th.domain.review.entity.Review;
+import com.example.umc9th.domain.review.entity.ReviewImage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -107,6 +108,13 @@ public class ReviewConverter {
                 .body(review.getContent())
                 .createdAt(LocalDate.from(review.getCreatedAt()))
                 .comments(commentConverter.toCommentDTOList(comments))
+                .build();
+    }
+
+    public static ReviewImage toReviewImage(String pictureUrl, Review review) {
+        return ReviewImage.builder()
+                .imageUrl(pictureUrl)
+                .review(review)
                 .build();
     }
 }

@@ -1,15 +1,21 @@
 package com.example.umc9th.domain.review.controller;
 
+import com.example.umc9th.domain.review.dto.req.ReviewReqDTO;
 import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 import com.example.umc9th.global.annotation.ValidPage;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Validated
 public interface ReviewControllerDocs {
@@ -42,6 +48,20 @@ public interface ReviewControllerDocs {
     ApiResponse<ReviewResDTO.MyReviewPreViewListDTO> getMyReviews(
             @PathVariable("memberId") Long memberId,
             @RequestParam("page") @ValidPage Integer page
+    );
+
+    // 리뷰 사진 삭제
+    @Operation(
+            summary = "리뷰 사진 삭제 API By 레미 (개발 완료)",
+            description = "리뷰 사진을 삭제합니다."
+    )
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "실패")
+    })
+    @DeleteMapping("/reviews/{reviewId}/image")
+    ApiResponse<Void> deleteReviewImage(
+            @PathVariable Long reviewId
     );
 
 
