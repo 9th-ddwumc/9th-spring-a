@@ -1,0 +1,24 @@
+package com.example.umc9th.domain.review.exception.code;
+
+import com.example.umc9th.global.apiPayload.code.BaseSuccessCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+
+@Getter
+@RequiredArgsConstructor
+public enum ReviewSuccessCode implements BaseSuccessCode {
+
+    FOUND(HttpStatus.OK,
+            "REVIEW200_1",
+            "성공적으로 리뷰를 조회했습니다."),
+    REVIEW_IMAGE_DELETED(HttpStatus.OK,
+            "REVIEWIMAGE204_1",
+            "성공적으로 리뷰 사진을 삭제했습니다.")
+    ;
+
+    private final HttpStatus status;
+    private final String code;
+    private final String message;
+}
